@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>물품관리</title>
+    <title>게시판글 추가</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -13,20 +13,21 @@
 <body>
 
     <div class="container">
-        <h2>상품입력</h2>
+        <h2>게시글 입력</h2>
         <p>.</p>
-        <form action="/insert" method="POST">
+    
+        <form action="/insert" method="POST" enctype="multipart/form-data">
             <div class="form-group">
-                <label for="name">상품이름:</label>
-                <input type="text" class="form-control" id="name" name="name">
+                <label for="user">제목:</label>
+                <input type="text" class="form-control" id="user" name="user">
             </div>
             <div class="form-group">
-                <label for="num">번호</label>
-                <input type="text" class="form-control" id="num" name="num">
+                <label for="memo">메모</label>
+                <input type="text" class="form-control" id="memo" name="memo">
             </div>
             <div class="form-group">
-                <label for="section">분류</label>
-                <input type="text" class="form-control" id="section" name="section">
+                <label for="image">이미지</label>
+                <input type="file" class="form-control" accept="image/*" name="image" placeholder="3M 미만">
             </div>
             <button type="submit" class="btn btn-success">삽입하기</button>
         </form>

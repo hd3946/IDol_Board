@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+    img{
+        width: 50%; 
+        height: auto;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>IDOL</h2>
+        <p>상세 게시판 입니다.</p>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>이미지</th>
+                </tr>
+                <tr> <th>내용</th> </tr>
+                   
+            </thead>
+            <tbody>
+               
+                <tr>
+                    <td><%= test[0].reviewid %></td>
+                </tr>
+                    <tr><td><a><%= test[0].memo %></a></td></tr>
+                    <tr>
+                    <td><img src='http://localhost:4000/images/<%= test[0].image %>'></td>
+                </tr>
+              
+            </tbody>
+        </table>
+    </div>
+    <div class="comments">
+            <h4>Comments(<%= test?test.length:"0" %>)</h4>
+            <% test.forEach(function(comments){ %>              
+            
+                <b><%= comments.user %></b>    
+                  <div class="top">   
+                      <form class="delete"  method="post">
+                        <button type="button"
+                          onclick="confirm('Your comment will be deleted')?this.parentElement.submit():null;">
+                          x
+                        </button>
+                      </form>
+                  </div>
+                  <% })%>
+                <form action="/posts/<%= test.reviewid %>/comments" method="post"> 
+                <textarea class="cvRequired" type="text" id="memo" name="memo" cvRqErrMsg="comments is empty." cvRqErrTo="#cvErrTitle"
+                  placeholder="Add comment here:Please login to make a comment">
+                </textarea>
+                <button type="submit" class="btn btn-success">Comments</button>
+                 
+            </form>     
+            
+          </div>
+</body>
+</html>

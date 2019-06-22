@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>글내용</title>
+    <script type="text/javascript">
+        function del(){
+             if(confirm("삭제하시겠습니까?")){
+                    location.href="/delete/<%=data.id%>";
+                }
+        }
+    </script>
+</head>
+<body>
+    <h1>글내용</h1>
+    <hr />   
+        <table width="80%" border="1">
+           <tr>
+                <td>ID</td>
+                <td><%=data.id%></td>
+            </tr>
+            <tr>
+                <td>Title</td>
+                <td width="80%"><%=data.title%></td>
+            </tr>
+            <tr>
+                <td>Content</td>
+                <td width="80%" height="300"><%=data.content%></td>
+            </tr>
+            <tr>
+                <td>Date</td>
+                <td width="80%"><%=data.wdate%></td>
+            </tr>
+        </table>
+        <p></p>
+        <!-- 댓글 ------------------------>
+        <table width="80%" border="1">
+            <tr>
+                <th>ID</th>
+                <th>Content</th>
+                <th>Date</th>
+            </tr>
+        <% data2.forEach(function(item,index){ %>
+                <tr>            
+                    <td><%=item.id%></td>
+                    <td width="80%"><%=item.content%></td>
+                    <td><%=item.wdate%></td>            
+                </tr>
+                <% }); %>
+        </table>
+        <!-- 댓글.끝 ------------------------>
+        <a href="/insert">등록</a>       
+        <a href="/edit/<%=data.id%>">수정</a>
+        <a href="#" onclick="del()">삭제</a>
+        <a href="/">목록</a>
+    </body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>수정</title>
+</head>
+<body>
+    <h1>수정</h1>
+    <a href="/">목록</a>
+    <hr />
+    <form method="post">
+        <table>
+           <tr>
+                <td>ID</td>
+                <td><input type="text" name="id" value="<%=data.id%>" disabled /></td>
+            </tr>
+            <tr>
+                <td>Title</td>
+                <td><input type="text" name="title" value="<%=data.title%>" /></td>
+            </tr>
+            <tr>
+                <td>Content</td>
+                <td>
+                <textarea rows="10" cols="100" name="content"><%=data.content%></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>Date</td>
+                <td><input type="text" name="wdate" value="<%=data.wdate%>" /></td>
+            </tr>
+        </table>
+        <input type="submit" value="등록" />
+        
+    </form>
+</body>
+</html>
