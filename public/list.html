@@ -1,76 +1,81 @@
-<!DOCTYPE html>
-<html lang="ko">
-
-<head>
-    <title>Bootstrap Example</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <style>
-    img{
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Multiverse by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="/assets/css/main.css?ver=1" type="text/css" />
+		<noscript><link rel="stylesheet" href="/assets/css/noscript.css?ver=1" /></noscript>
+		<style>
+		h1{
+			text-align:center;
+		}
+		img{
         width: 100pt;
         height: 100pt;
-    }
-    </style>
-</head>
+   		}
+		</style>
+	</head>
+	<body class="is-preload">
 
-<body>
+		<!-- Wrapper -->
+			<div id="wrapper">
 
-    <div class="container">
-        <h2>IDOL</h2>
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="/pasing/1"><strong>게시판화면</strong> by HTML5 UP</a></h1>
+						<button type="button" onclick="location.href='/sign_up'" class="btn btn-danger btn-sm pull-center">회원가입</button>
+						<button type="button" onclick="location.href='/login'" class="btn btn-danger btn-sm pull-center">로그인</button>
+						<nav>
+							<ul>
+								<li><a href="#footer" class="icon fa-info-circle">About</a></li>
+							</ul>
+						</nav>
+					</header>
 
-        <a href="/insert">추가하기</a>
-        <br>
-        <br>
-        <p>아이돌 게시판 입니다.</p>
-
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>번호</th>
-                    <th>제목</th>
-                    <th>이미지</th>
-                    <th>분류</th>
-                    <th>작성일</th>
-                    <th>조회수</th>
-                    <th>수정</th>
-                    <th>삭제</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% data.forEach(function (item,index){ %>
-                <tr>
-                    <td>
-                        <%= item.reviewid %>
-                    </td>
-                    <td>
-                        <a href='/detail/<%= item.reviewid %>'><%= item.user %></a>
-                    </td>
-                    <td>                
-                        <img src='http://localhost:4000/images/<%= item.image %>'>                      
-                    </td>
-                    <td>
-                        <%= item.time.getFullYear() + '-' + item.time.getMonth() + "-" + item.time.getDate() %>
-                    </td>
-                    <td>
-                        <a href="/delete/<%= item.reviewid %>">삭제</a>
-                    </td>
-                    <td>
-                        <a href="/edit/<%= item.reviewid %>">수정</a>
-                    </td>
-                </tr>
-                <% })%>
-            </tbody>
-        </table>
-    </div>
-
-
-    <br>
-    <br>
-
-
+				<!-- Main -->
+				<div>
+					<h1 class="bg-danger">아이돌 게시판 입니다.</h1>
+					<table class="table table-striped">
+					<thead>
+							<tr>
+								<th>번호</th>
+								<th>제목</th>
+								<th>분류</th>
+								<th>작성일</th>
+								<th>삭제</th>
+								<th>수정</th>
+							</tr>
+					</thead>
+					<tbody>
+							<% data.forEach(function (item,index){ %>
+							<tr>
+								<td>
+									<%= item.reviewid %>
+								</td>
+								<td>
+									<a href='/detail/<%= item.reviewid %>'><%= item.user %></a>
+								</td>
+								<td>
+									<p>IDOL </p>
+								</td>
+								<td>
+									<%= item.time.getFullYear() + '-' + item.time.getMonth() + "-" + item.time.getDate() %>
+								</td>
+								<td>
+									<a href="/delete/<%= item.reviewid %>">삭제</a>
+								</td>
+								<td>
+									<a href="/edit/<%= item.reviewid %>">수정</a>
+								</td>
+							</tr>
+							<% })%>
+						</tbody>
+						<button type="button" onclick="location.href='/insert'" class="btn btn-danger btn-sm pull-right">게시글 작성</button>
+					</table>
+	
     <div class="container">
         <ul class="pager">
 
@@ -143,11 +148,74 @@ if(curSet < totalSet){
 %>
 
         </ul>
+        
     </div>
+				</div>
+				
+					<div id="main">
+						<% data.forEach(function (item,index){ %>
+						<article class="thumb">
+							<a href="/images/fulls/01.jpg" class="image"><img src= "data:image/jpg;base64,<%= new Buffer(item.image,'binary').toString("base64") %>"></a>
+							<h2>레드벨벳</h2>
+						</article>
+						<% })%>
+					</div>
+					
+				<!-- Footer -->
+					<footer id="footer" class="panel">
+						<div class="inner split">
+							<div>
+								<section>
+									<h2>Magna feugiat sed adipiscing</h2>
+									<p>Nulla consequat, ex ut suscipit rutrum, mi dolor tincidunt erat, et scelerisque turpis ipsum eget quis orci mattis aliquet. Maecenas fringilla et ante at lorem et ipsum. Dolor nulla eu bibendum sapien. Donec non pharetra dui. Nulla consequat, ex ut suscipit rutrum, mi dolor tincidunt erat, et scelerisque turpis ipsum.</p>
+								</section>
+								<section>
+									<h2>Follow me on ...</h2>
+									<ul class="icons">
+										<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+										<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+										<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+										<li><a href="#" class="icon fa-github"><span class="label">GitHub</span></a></li>
+										<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+										<li><a href="#" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
+									</ul>
+								</section>
+							
+							</div>
+							<div>
+								<section>
+									<h2>Get in touch</h2>
+									<form method="post" action="#">
+										<div class="fields">
+											<div class="field half">
+												<input type="text" name="name" id="name" placeholder="Name" />
+											</div>
+											<div class="field half">
+												<input type="text" name="email" id="email" placeholder="Email" />
+											</div>
+											<div class="field">
+												<textarea name="message" id="message" rows="4" placeholder="Message"></textarea>
+											</div>
+										</div>
+										<ul class="actions">
+											<li><input type="submit" value="Send" class="primary" /></li>
+											<li><input type="reset" value="Reset" /></li>
+										</ul>
+									</form>
+								</section>
+							</div>
+						</div>
+					</footer>
 
-    <br>
-    <br>
+			</div>
 
-</body>
+		<!-- Scripts -->
+			<script src="/assets/js/jquery.min.js?ver=1"></script>
+			<script src="/assets/js/jquery.poptrox.min.js?ver=1"></script>
+			<script src="/assets/js/browser.min.js?ver=1"></script>
+			<script src="/assets/js/breakpoints.min.js?ver=1"></script>
+			<script src="/assets/js/util.js?ver=1"></script>
+			<script src="/assets/js/main.js?ver=1"></script>
 
+	</body>
 </html>

@@ -33,37 +33,19 @@ router.get("/show", function (req, res) {
 
 });
 
-//댓글 입력
-router.post("/posts/:id/comments", function (req, res) {
-    console.log("댓글입력")
+    //댓글 입력
+    router.post("/posts/:id/comments", function (req, res) {
+        console.log("댓글입력")
 
-    var body = req.body;
-    var queryString = 'insert into reply(reviewid,memo) values (?,?)';
-
-          getConnection().query(queryString, [req.params.id,body.memo], function () {
-            res.redirect('/detail/'+ 1);
-          })
-});
-
-//댓글 띄우기
-router.get("/detail/:id/tttt", function (req, res) {
-    console.log("댓글띄우기")
-    fs.readFile('./public/detail.html', 'utf-8', function (error, data) {
-        if (error) {
-            console.log("ejs오류" + error);
-            return
-        }
-    
-        var queryString = 'select * from reply where reviewid = ?';
-        getConnection().query(queryString, [req.params.id], function (error, result) {      
-           
-            // res.send(ejs.render(data,{
-            //     cdata: result
-            // }))
-        })
-
+        var body = req.body;
+        console.log(req.params.id)
+        var queryString = 'insert into reply(review_id,comment) values (?,?)';
+        //var queryString2 = 'delete from reply where review_id';
+        //body.memo
+            getConnection().query(queryString, [req.params.id,body.memo], function () {
+                res.redirect('/pasing/'+ 1);
+            })
     });
-    
-});
-  
+
+
   module.exports = router;

@@ -6,7 +6,11 @@ var ejs = require('ejs')
 var bodyParser = require('body-parser');
 
 //mysql db 연결 함수
-
+/*
+<img src= "<%= test2 %>">
+<img src= "<%= test3 %>">
+<img src='http://localhost:4000/images/<%= item.image %>'>  
+*/           
 var pool = mysql.createPool({
     connectionLimit: 10,
     host: 'localhost',
@@ -22,8 +26,6 @@ function getConnection() {
     return pool
 }
 
-
-router.use(bodyParser.urlencoded({ extended: false }))
 
 //게시판 페이징
 
@@ -103,6 +105,10 @@ router.get("/pasing/:cur", function (req, res) {
                 }
                 res.send(ejs.render(data, {
                     data: result,
+                   // test1: result[0].user,
+                    //test1: mysql.escape(new Buffer(result[0].image,'binary').toString("base64")),
+                    //test2: new Buffer(result.image,'binary').toString("utf-8"),
+                   // test3: new Buffer(result[0].image,'binary').toString("base64"), 되는거
                     pasing: result2
                 }));
             });
@@ -149,24 +155,18 @@ router.get("/delete/:id", function (req, res) {
     });
 
 })
-//삽입 페이지
-router.get("/insert", function (req, res) {
-    console.log("삽입 페이지 나와라")
-    fs.readFile('./public/insert.html', 'utf-8', function (error, data) {
-        res.send(data)
-    })
 
-})
 
 //수정 페이지
 router.get("/edit/:id", function (req, res) {
     console.log("수정 진행")
 
     fs.readFile('./public/edit.html', 'utf-8', function (error, data) {
-        getConnection().query('select * from review where id = ?', [req.params.id], function (error, result) {
-            res.send(ejs.render(data, {
+        getConnection().query('select * from review where reviewid = ?', [req.params.id], function (error, result) {
+            //res.send(result);
+             res.send(ejs.render(data, {     
                 data: result[0]
-            }))
+             }))
         })
     });
 
@@ -175,9 +175,11 @@ router.get("/edit/:id", function (req, res) {
 router.post("/edit/:id", function (req, res) {
     console.log("수정 포스트 진행")
     var body = req.body;
-    getConnection().query('update review set name = ?, modelnumber = ?, series = ? where id = ?',
-        [body.name, body.num, body.section, req.params.id], function () {
-            res.redirect('/main')
+    console.log(body)
+    getConnection().query('update review set user = ?, memo = ? where reviewid = ?',
+        [body.title, body.memo, req.params.id], function () {
+            res.redirect('/pasing/1')
+            //res.redirect('/main')
         })
 })
 
@@ -191,18 +193,18 @@ router.get("/detail/:id", function (req, res) {
             return
         }
     
-        var queryString = 'select * from review where reviewid = ?';
-        var commentquery = 'SELECT * FROM review JOIN reply ON review.reviewid=reply.reviewid WHERE review.reviewid=?'
-       
+        //var queryString = 'select * from review where reviewid = ?';
+        var commentquery = 'SELECT * FROM review Left JOIN reply ON review.reviewid=reply.review_id WHERE review.reviewid=?'
+        
         getConnection().query(commentquery, [req.params.id], function (error, result) {
             if (error) {
                 console.log("에러" + error);
                 return
             }
             //res.send(result);
-             res.send(ejs.render(data, {
+               res.send(ejs.render(data, {
                  test: result     
-             }));
+               }));
         })
         
     });
